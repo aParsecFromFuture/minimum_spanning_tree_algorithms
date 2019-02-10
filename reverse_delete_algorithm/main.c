@@ -37,14 +37,16 @@ bool is_bridge(graph*,int,int);
 void find_bridges(graph*,int,int,int*,int*,p_queue*);
 
 int main(){
-	graph *g = create_graph(7);
+	graph *g = create_graph(6);
 	set_edge(g,0,1,1);
-	set_edge(g,0,2,1);
+	set_edge(g,0,3,1);
+	set_edge(g,1,2,1);
 	set_edge(g,1,3,1);
 	set_edge(g,1,4,1);
+	set_edge(g,2,3,1);
+	set_edge(g,2,4,1);
 	set_edge(g,2,5,1);
-	set_edge(g,2,6,1);
-	set_edge(g,3,4,1);
+	set_edge(g,3,5,1);
 	reverse_delete(g);
 }
 
@@ -189,7 +191,7 @@ void find_bridges(graph *g,int at,int parent,int *ids,int *low,p_queue *list){
 			}
 			if(!g->isvisited[to]){
 				find_bridges(g,to,at,ids,low,list);
-				low[at] = (low[at] < low[to])? low[at] : ids[to];
+				low[at] = (low[at] < low[to])? low[at] : low[to];
 				if(ids[at] < low[to]){
 					push(list,at,to,g->adj_matrix[at][to]);
 				}	
